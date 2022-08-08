@@ -70,12 +70,12 @@ docReady(function () {
         }
 
         function playOK() {
-            var audio = new Audio('/assets/sounds/beep.mp3');
+            var audio = new Audio('assets/sounds/beep.mp3');
             audio.play();
         }
-
+        
         function playNG() {
-            var audio = new Audio('/assets/sounds/error.mp3');
+            var audio = new Audio('assets/sounds/error.mp3');
             audio.play();
         }
     }
