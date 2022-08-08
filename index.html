@@ -28,7 +28,7 @@
 </body>
 <script src="html5-qrcode.min.js"></script>
 <script>
-
+    var start, end, time;
     
     function docReady(fn) {
         // see if DOM is already available
@@ -46,6 +46,7 @@
         var lastResult, countResults = 0;
         function onScanSuccess(decodedText, decodedResult) {
             if (decodedText !== lastResult) {
+                start = new Date().getTime(); 
                 ++countResults;
                 lastResult = decodedText;
                 
@@ -65,7 +66,32 @@
                     // Stop failed, handle it.
                     });
                     html5QrcodeScanner.clear();
-                }              
+                }  
+                
+            }else{
+                end = new Date().getTime();
+                time = end - start;
+                cnt.innerHTML = time;
+            
+                if (time > 2000){                    
+                    // Handle on success condition with the decoded message.
+                    resultContainer.innerHTML = decodedText ;
+                    var strPlan =document.getElementById('qr-reader-plan').value;
+                    if (decodedText.search(strPlan)!== -1){
+                        playOK();
+                        resultContainer.style.color = "black";
+                    }else{                       
+                        playNG();
+                        resultContainer.style.color = "red";                        
+                        html5QrcodeScanner.stop().then((ignore) => {
+                        // QR Code scanning is stopped.
+                        }).catch((err) => {
+                        // Stop failed, handle it.
+                        });
+                        html5QrcodeScanner.clear();
+                    }
+                    start = new Date().getTime(); 
+                }
             }
         }
 
