@@ -29,7 +29,7 @@
 <script src="html5-qrcode.min.js"></script>
 <script>
 
-    var strPlan =document.getElementById('qr-reader-plan').value;
+    
     function docReady(fn) {
         // see if DOM is already available
         if (document.readyState === "complete"
@@ -51,6 +51,7 @@
                 
                 // Handle on success condition with the decoded message.
                 resultContainer.innerHTML = decodedText ;
+                var strPlan =document.getElementById('qr-reader-plan').value;
                 
                 if (decodedText.search(strPlan)!== -1){
                     playOK();
