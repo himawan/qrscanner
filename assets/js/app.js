@@ -11,12 +11,14 @@ function docReady(fn) {
     }
 }
 
-docReady(function () {  
-    var resultContainer = document.getElementById('qr-reader-results');
+docReady(function () {      
     var lastResult, countResults = 0, strPlan;
+    var resultContainer = document.getElementById('qr-reader-results');
     var planContainer =document.getElementById('qr-reader-plan');
     var resultDisplay = document.getElementById("qr-title-text");
     var panelTitle = document.getElementById("qr-title");
+    var okSound = document.getElementById("ok-sound"); 
+    var ngSound = document.getElementById("ng-sound"); 
 
     function onScanSuccess(decodedText, decodedResult) {
         if (decodedText !== lastResult) {
@@ -40,20 +42,20 @@ docReady(function () {
             resultContainer.innerHTML = decodedText ;
             strPlan=planContainer.value;
             
-            if (strPlan==""){
-                playNG();
+            if (strPlan==""){            
+                ngSound.play();
                 resultContainer.style.color = "black";  
                 resultDisplay.textContent  = "EMPTY STRING";
                 panelTitle.className = "w3-panel w3-orange w3-center"; 
                 planContainer.focus();
             } else {
-               if (decodedText.search(strPlan)!== -1){
-                    playOK();
+               if (decodedText.search(strPlan)!== -1){                 
+                    okSound.play();
                     resultContainer.style.color = "black";
                     resultDisplay.textContent  = "PASS";
                     panelTitle.className = "w3-panel w3-green w3-center"; 
-                } else {             
-                    playNG();
+                } else {                  
+                    ngSound.play();
                     resultContainer.style.color = "red";  
                     resultDisplay.textContent  = "FAIL";
                     panelTitle.className = "w3-panel w3-red w3-center"; 
@@ -67,16 +69,6 @@ docReady(function () {
                 } 
             }
             
-        }
-
-        function playOK() {
-            var audio = new Audio('../sounds/beep.mp3');
-            audio.play();
-        }
-        
-        function playNG() {
-            var audio = new Audio('../sounds/error.mp3');
-            audio.play();
         }
     }
 

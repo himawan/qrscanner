@@ -17,7 +17,16 @@
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->   
+        <![endif]-->  
+        <audio id="ok-sound">           
+            <source src="assets/sounds/beep.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="ng-sound">           
+            <source src="assets/sounds/error.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
         <div class="w3-container">   
             <div id="qr-title" class="w3-panel w3-blue w3-center">
                 <h2 id="qr-title-text">QR Scanner</h2>
@@ -33,6 +42,7 @@
             <div id="qr-reader-results"></div>
             <div id="qr-reader" style="width:100%"></div>
         </div>  
+
     </body>
 
     <script src="assets/js/html5-qrcode.min.v2.2.0.js"></script>
