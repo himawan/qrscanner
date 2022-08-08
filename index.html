@@ -8,107 +8,35 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>QR Scanner</title>
-        <meta name="description" content="">
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+        <meta name="description" content="Javascript QR Code Scanner using Camera">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <style> 
-            input {
-              width: 75%;
-            }
-            </style>
+        <link rel="stylesheet" href="assets/css/w3.css"> 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">       
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    Find text: <input type="text" id="qr-reader-plan" name="lname" width="90%"><br />
-    Scan Result: <div id="qr-reader-results"></div>
-    <div id="qr-reader" style="width:100%"></div>
-    
-</body>
-<script src="html5-qrcode.min.js"></script>
-<script>
-    var start, end, time;
-    
-    function docReady(fn) {
-        // see if DOM is already available
-        if (document.readyState === "complete"
-            || document.readyState === "interactive") {
-            // call on next available tick
-            setTimeout(fn, 1);
-        } else {
-            document.addEventListener("DOMContentLoaded", fn);
-        }
-    }
+        <![endif]-->   
+        <div class="w3-container">   
+            <div id="qr-title" class="w3-panel w3-blue w3-center">
+                <h2 id="qr-title-text">QR Scanner</h2>
+            </div>
 
-    docReady(function () {
-        var resultContainer = document.getElementById('qr-reader-results');
-        var lastResult, countResults = 0;
-        function onScanSuccess(decodedText, decodedResult) {
-            if (decodedText !== lastResult) {
-                start = new Date().getTime(); 
-                ++countResults;
-                lastResult = decodedText;
-                
-                // Handle on success condition with the decoded message.
-                resultContainer.innerHTML = decodedText ;
-                var strPlan =document.getElementById('qr-reader-plan').value;
-                
-                if (decodedText.search(strPlan)!== -1){
-                    playOK();
-                    resultContainer.style.color = "black";
-                }else{                   
-                    playNG();
-                    resultContainer.style.color = "red";                  
-                    html5QrcodeScanner.stop().then((ignore) => {
-                    // QR Code scanning is stopped.
-                    }).catch((err) => {
-                    // Stop failed, handle it.
-                    });
-                    html5QrcodeScanner.clear();
-                }  
-                
-            }else{
-                end = new Date().getTime();
-                time = end - start;
+            <label>Search Text</label>
+            <div class="w3-display-container" >
+                <input class="w3-input w3-border w3-light-grey" type="text" id="qr-reader-plan">
+                <div class="w3-display-right"><button class="w3-button" onclick="document.getElementById('qr-reader-plan').value=document.getElementById('qr-reader-results').innerHTML"><i class="material-icons">content_copy</i></button></div>
+            </div>            
             
-                if (time > 2000){                    
-                    // Handle on success condition with the decoded message.
-                    resultContainer.innerHTML = decodedText ;
-                    var strPlan =document.getElementById('qr-reader-plan').value;
-                    if (decodedText.search(strPlan)!== -1){
-                        playOK();
-                        resultContainer.style.color = "black";
-                    }else{                       
-                        playNG();
-                        resultContainer.style.color = "red";                        
-                        html5QrcodeScanner.stop().then((ignore) => {
-                        // QR Code scanning is stopped.
-                        }).catch((err) => {
-                        // Stop failed, handle it.
-                        });
-                        html5QrcodeScanner.clear();
-                    }
-                    start = new Date().getTime(); 
-                }
-            }
-        }
+            <label>Scan Result</label>
+            <div id="qr-reader-results"></div>
+            <div id="qr-reader" style="width:100%"></div>
+        </div>  
+    </body>
 
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-reader", { fps: 10, qrbox: 250 });
-        html5QrcodeScanner.render(onScanSuccess);
-    });
+    <script src="assets/js/html5-qrcode.min.v2.2.0.js"></script>
+    <script src="assets/js/app.min.js" async defer></script>
 
-    function playOK() {
-        var audio = new Audio('beep.mp3');
-        audio.play();
-    }
-
-    function playNG() {
-        var audio = new Audio('error.mp3');
-        audio.play();
-    }
-    
-</script>
-</head>
+    </head>
 </html>
